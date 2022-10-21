@@ -1,17 +1,15 @@
 mod lexer;
-use lexer::Lexer;
+use lexer::*;
+use lexer::token::*;
 
 fn main() {
-    let mut tk: Lexer = Lexer::new("/Users/greg/rpsa/data/php-tokens.json");
-    tk.init_from_filepath("/Users/greg/rpsa/extra/test.php");
+    let mut lex: Lexer = Lexer::new("(0.2)");
 
-    while tk.has_more_tokens() {
-        match tk.get_next_token() {
-            Ok(t) => println!("<{}:{}> Token Type: {} Token: {}", t.get_line(), t.get_col(), t.get_token_type(), t.get_value()),
-            Err(err) => {
-                println!("{}", err);
-                break;
-            }
+    loop {
+        match lex.next_token() {
+            Ok(TokenType::EOF) => break,
+            Ok(token) => println!("{0:?}", token),
+            Err(err) => println!("{0:?}", err)
         }
     }
 }

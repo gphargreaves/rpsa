@@ -1,28 +1,24 @@
-pub struct Token {
-        token_type: String,
-        value: String,
-        line: usize,
-        col: usize
-    }
+pub type DepthStateType = i32;
 
-impl Token {
-    pub fn new(token_type: &str, value: &str, line: usize, col: usize) -> Token {
-        return Token{ token_type: String::from(token_type), value: String::from(value), line, col}
-    }
+#[derive(Debug)]
+pub enum PunctuationKind {
+    Open(DepthStateType),
+    Close(DepthStateType)
+}
 
-    pub fn get_token_type(&self) -> &str{
-        return self.token_type.as_str();
-    }
+#[allow(dead_code)]
+#[derive(Debug)]
+pub enum TokenType {
+    EOF,
+    Whitespace(String),
+    /** Punctuation like , . ( [ */
+    Punctuation{raw: char, kind: PunctuationKind},
 
-    pub fn get_value(&self) -> &str{
-        return self.value.as_str();
-    }
+    Operator(String),
 
-    pub fn get_line(&self) -> usize{
-        return self.line;
-    }
+    Char(char),
 
-    pub fn get_col(&self) -> usize{
-        return self.col;
-    }
+    Numeric(String),
+
+    Unkown(char),
 }
