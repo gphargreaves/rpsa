@@ -9,15 +9,22 @@ const T_WHITESPACE: &str = "T_WHITESPACE";
 const T_PHP_OPEN_TAG: &str = "T_PHP_OPEN_TAG";
 const T_PHP_CLOSE_TAG: &str = "T_PHP_CLOSE_TAG";
 const T_SEMICOLON: &str = "T_SEMICOLON";
+const T_COLON: &str = "T_COLON";
 const T_OPEN_CURLY: &str = "T_OPEN_CURLY";
 const T_CLOSE_CURLY: &str = "T_CLOSE_CURLY";
+const T_OPEN_PARANTHESES: &str = "T_OPEN_PARANTHESES";
+const T_CLOSE_PARANTHESES: &str = "T_CLOSE_PARANTHESES";
 const T_EQUALS: &str = "T_EQUALS";
+const T_IS_IDENTICAL: &str = "T_IS_IDENTICAL";
 
 //Reserved Words
 const T_CLASS: &str = "T_CLASS";
 const T_PUBLIC: &str = "T_PUBLIC";
 const T_PRIVATE: &str = "T_PRIVATE";
 const T_PROTECTED: &str = "T_PROTECTED";
+const T_FUNCTION: &str = "T_FUNCTION";
+const T_IF: &str = "T_IF";
+const T_ECHO: &str = "T_ECHO";
 
 //Other
 const T_VARIABLE: &str = "T_VARIABLE";
@@ -27,7 +34,7 @@ const T_STRING: &str = "T_STRING";
 const T_LSTRING: &str = "T_LSTRING";
 const T_LNUMBER: &str = "T_LNUMBER";
 
-const TOKEN_RULES: [(&str, &str); 16] = [
+const TOKEN_RULES: [(&str, &str); 23] = [
     //Whitespace
     (T_WHITESPACE, r"^\s+"),
     //PHP Structural
@@ -35,13 +42,20 @@ const TOKEN_RULES: [(&str, &str); 16] = [
     (T_PHP_CLOSE_TAG, r"^\?>"),
     (T_OPEN_CURLY, r"^\{"),
     (T_CLOSE_CURLY, r"^\}"),
+    (T_OPEN_PARANTHESES, r"^\("),
+    (T_CLOSE_PARANTHESES, r"^\)"),
     (T_SEMICOLON, r"^;"),
+    (T_COLON, r"^:"),
+    (T_IS_IDENTICAL, r"^==="),
     (T_EQUALS, r"^="),
     //PHP Reserved
     (T_CLASS, r"^class"),
     (T_PUBLIC, r"^public"),
     (T_PRIVATE, r"^private"),
     (T_PROTECTED, r"^protected"),
+    (T_FUNCTION, r"^function"),
+    (T_IF, r"^if"),
+    (T_ECHO, r"^echo"),
 
     //Other
     (T_VARIABLE, r"^\$[[:alpha:]_]+"),
@@ -51,7 +65,6 @@ const TOKEN_RULES: [(&str, &str); 16] = [
     (T_LSTRING, r#"^'[^']*'"#),
     (T_LNUMBER, r"^\d+"),
 ];
-
 pub struct Tokenizer {
     code: String,
     cursor: usize,
@@ -59,6 +72,7 @@ pub struct Tokenizer {
     col: usize
 }
 
+#[allow(dead_code)]
 impl Tokenizer {
     pub fn new(code: &str) -> Tokenizer{
         return Tokenizer {code: String::from(code), cursor: 0, line: 1, col: 1};
