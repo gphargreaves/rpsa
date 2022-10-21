@@ -1,0 +1,134 @@
+[
+    {
+        "token": "T_WHITESPACE",
+        "pattern": "^\\s+"
+    },
+    {
+        "token": "T_PHP_OPEN_TAG",
+        "pattern": "^<\\?php\\s"
+    },
+    {
+        "token": "T_PHP_CLOSE_TAG",
+        "pattern": "^\\?>"
+    },
+    {
+        "token": "{",
+        "pattern": "^\\{"
+    },
+    {
+        "token": "}",
+        "pattern": "^\\}"
+    },
+    {
+        "token": "(",
+        "pattern": "^\\("
+    },
+    {
+        "token": ")",
+        "pattern": "^\\)"
+    },
+    {
+        "token": ";",
+        "pattern": "^;"
+    },
+    {
+        "token": ":",
+        "pattern": "^:"
+    },
+    {
+        "token": ".",
+        "pattern": "^\\."
+    },
+    {
+        "token": ",",
+        "pattern": "^,"
+    },
+    {
+        "token": "?",
+        "pattern": "^\\?"
+    },
+    {
+        "token": "!",
+        "pattern": "^!"
+    },
+    {
+        "token": "T_IS_IDENTICAL",
+        "pattern": "^==="
+    },
+    {
+        "token": "T_OBJECT_OPERATOR",
+        "pattern": "^->"
+    },
+    {
+        "token": "T_BOOLEAN_OR",
+        "pattern": "^\\|\\|"
+    },
+    {
+        "token": "T_BOOLEAN_AND",
+        "pattern": "^&&"
+    },
+    {
+        "token": "=",
+        "pattern": "^="
+    },
+    {
+        "token": "T_CLASS",
+        "pattern": "^class"
+    },
+    {
+        "token": "T_STATIC",
+        "pattern": "^static"
+    },
+    {
+        "token": "T_PUBLIC",
+        "pattern": "^public"
+    },
+    {
+        "token": "T_PRIVATE",
+        "pattern": "^private"
+    },
+    {
+        "token": "T_PROTECTED",
+        "pattern": "^protected"
+    },
+    {
+        "token": "T_FUNCTION",
+        "pattern": "^function"
+    },
+    {
+        "token": "T_USE",
+        "pattern": "^use"
+    },
+    {
+        "token": "T_IF",
+        "pattern": "^if"
+    },
+    {
+        "token": "T_ECHO",
+        "pattern": "^echo"
+    },
+    {
+        "token": "T_VARIABLE",
+        "pattern": "^\\$[[:alpha:]_]+"
+    },
+    {
+        "token": "T_FQN",
+        "pattern": "^[[:alpha:]\\\\]+\\\\[[:alpha:]]+"
+    },
+    {
+        "token": "T_COMMENT",
+        "pattern": "^/\\*\\*[\\S\\s]+?\\*/"
+    },
+    {
+        "token": "T_STRING",
+        "pattern": "^[_[:alpha:]]+"
+    },
+    {
+        "token": "T_LSTRING",
+        "pattern": "^\"[^\"]*\""
+    },
+    {
+        "token": "T_LSTRING",
+        "pattern": "^'[^']*'"
+    }
+]
