@@ -11,6 +11,10 @@ class A {
             echo 'Hello!';
         }
     }
+
+    public static function testingStr(string $a): void{
+        echo 'Do a thing' . $a;
+    }
 }
 HERE;
 

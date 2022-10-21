@@ -10,6 +10,7 @@ const T_PHP_OPEN_TAG: &str = "T_PHP_OPEN_TAG";
 const T_PHP_CLOSE_TAG: &str = "T_PHP_CLOSE_TAG";
 const T_SEMICOLON: &str = "T_SEMICOLON";
 const T_COLON: &str = "T_COLON";
+const T_FULL_STOP: &str = "T_FULL_STOP";
 const T_OPEN_CURLY: &str = "T_OPEN_CURLY";
 const T_CLOSE_CURLY: &str = "T_CLOSE_CURLY";
 const T_OPEN_PARANTHESES: &str = "T_OPEN_PARANTHESES";
@@ -19,6 +20,7 @@ const T_IS_IDENTICAL: &str = "T_IS_IDENTICAL";
 
 //Reserved Words
 const T_CLASS: &str = "T_CLASS";
+const T_STATIC: &str = "T_STATIC";
 const T_PUBLIC: &str = "T_PUBLIC";
 const T_PRIVATE: &str = "T_PRIVATE";
 const T_PROTECTED: &str = "T_PROTECTED";
@@ -34,7 +36,7 @@ const T_STRING: &str = "T_STRING";
 const T_LSTRING: &str = "T_LSTRING";
 const T_LNUMBER: &str = "T_LNUMBER";
 
-const TOKEN_RULES: [(&str, &str); 23] = [
+const TOKEN_RULES: [(&str, &str); 25] = [
     //Whitespace
     (T_WHITESPACE, r"^\s+"),
     //PHP Structural
@@ -46,10 +48,12 @@ const TOKEN_RULES: [(&str, &str); 23] = [
     (T_CLOSE_PARANTHESES, r"^\)"),
     (T_SEMICOLON, r"^;"),
     (T_COLON, r"^:"),
+    (T_FULL_STOP, r"^\."),
     (T_IS_IDENTICAL, r"^==="),
     (T_EQUALS, r"^="),
     //PHP Reserved
     (T_CLASS, r"^class"),
+    (T_STATIC, r"^static"),
     (T_PUBLIC, r"^public"),
     (T_PRIVATE, r"^private"),
     (T_PROTECTED, r"^protected"),
