@@ -3,9 +3,20 @@ mod rules;
 use token::Token;
 use rules::Rules;
 use regex::Regex;
-use std::fs;
+use std::{fs};
+use thiserror::Error;
 
-pub struct Tokenizer {
+#[derive(Debug, Error)]
+pub enum LexerError {
+
+    #[error("No token rule matches at line: {line:?} pos: {col:?}")]
+    UnknownSymbol {
+        line: usize,
+        col: usize
+    }
+}
+
+pub struct Lexer {
     rules: Rules,
     code: String,
     cursor: usize,
@@ -14,10 +25,10 @@ pub struct Tokenizer {
 }
 
 #[allow(dead_code)]
-impl Tokenizer {
-    pub fn new(rules_filepath: &str) -> Tokenizer{
+impl Lexer {
+    pub fn new(rules_filepath: &str) -> Lexer{
         let rules: Rules = Rules::from_filepath(rules_filepath);
-        return Tokenizer {rules, code: String::new(), cursor: 0, line: 1, col: 1};
+        return Lexer {rules, code: String::new(), cursor: 0, line: 1, col: 1};
     }
 
     pub fn init_from_filepath(&mut self, filepath: &str){
@@ -29,7 +40,7 @@ impl Tokenizer {
         return self.cursor < self.code.len()
     }
 
-    pub fn get_next_token(&mut self) -> Token{
+    pub fn get_next_token(&mut self) -> Result<Token, LexerError>{
         let original: String = self.code.clone();
         let target: &str = &original.as_str()[self.cursor..];
         //println!("Scanned code: <#>{}<#>", target);
@@ -52,12 +63,9 @@ impl Tokenizer {
                 let matched_str: &str = matched.unwrap().as_str();
                 self.col = matched_str.len();
             }
-
-            return token_result;
-
+            return Ok(token_result);
         }
-       
-        panic!("Unrecognised token found in code");
+        return Err(LexerError::UnknownSymbol { line: self.line, col: self.col });
     }
 
     fn match_token(&mut self, target: &str, definition: (String, Regex)) -> Option<Token>{
