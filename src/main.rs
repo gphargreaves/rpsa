@@ -6,7 +6,12 @@ fn main() {
     tk.init_from_filepath("/Users/greg/rpsa/extra/test.php");
 
     while tk.has_more_tokens() {
-        let t  =  tk.get_next_token().ok().unwrap();
-        println!("<{}:{}> Token Type: {} Token: {}", t.get_line(), t.get_col(), t.get_token_type(), t.get_value());
+        match tk.get_next_token() {
+            Ok(t) => println!("<{}:{}> Token Type: {} Token: {}", t.get_line(), t.get_col(), t.get_token_type(), t.get_value()),
+            Err(err) => {
+                println!("{}", err);
+                break;
+            }
+        }
     }
 }

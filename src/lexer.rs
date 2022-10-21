@@ -9,7 +9,7 @@ use thiserror::Error;
 #[derive(Debug, Error)]
 pub enum LexerError {
 
-    #[error("No token rule matches at line: {line:?} pos: {col:?}")]
+    #[error("UnknownSymbol: No token rule matches at line: {line:?} pos: {col:?}")]
     UnknownSymbol {
         line: usize,
         col: usize
