@@ -3,7 +3,25 @@ pub type DepthStateType = i32;
 #[derive(Debug)]
 pub enum PunctuationKind {
     Open(DepthStateType),
-    Close(DepthStateType)
+    Close(DepthStateType),
+    Separator
+}
+
+#[derive(Debug)]
+pub enum OperatorKind {
+    Assignment,
+    Concat,
+    Plus,
+    Minus,
+    BinaryAnd,
+    BinaryOr
+}
+
+#[derive(Debug)]
+pub enum NumericHint {
+    Any,
+    Integer,
+    Float
 }
 
 #[allow(dead_code)]
@@ -14,11 +32,12 @@ pub enum TokenType {
     /** Punctuation like , . ( [ */
     Punctuation{raw: char, kind: PunctuationKind},
 
-    Operator(String),
+    Operator{raw: String, kind: OperatorKind},
 
     Char(char),
 
-    Numeric(String),
+    Numeric{raw: String, hint: NumericHint },
+    LString(String),
 
     Unkown(char),
 }

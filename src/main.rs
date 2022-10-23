@@ -3,7 +3,8 @@ use lexer::*;
 use lexer::token::*;
 
 fn main() {
-    let mut lex: Lexer = Lexer::new("(0.2)");
+    let input: String = std::fs::read_to_string("/Users/greg/rpsa/extra/test.php").unwrap();
+    let mut lex: Lexer = Lexer::new(input.as_str());
 
     loop {
         match lex.next_token() {
