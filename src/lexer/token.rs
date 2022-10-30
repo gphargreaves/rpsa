@@ -1,3 +1,5 @@
+use super::keywords::KeywordKind;
+
 pub type DepthStateType = i32;
 
 #[derive(Debug)]
@@ -7,19 +9,34 @@ pub enum PunctuationKind {
     Separator
 }
 
+#[allow(dead_code)]
+#[derive(Debug)]
+pub enum TagKind {
+    PhpOpen,
+    PhpClose
+}
+
+#[allow(dead_code)]
 #[derive(Debug)]
 pub enum OperatorKind {
-    Assignment,
-    Concat,
-    Plus,
-    Minus,
-    BinaryAnd,
-    BinaryOr
+    AssignmentOp, // =
+    EqualityOp, // ==
+    StrictEqualityOp, // ===
+    ConcatOp, // .
+    PlusOp, // +
+    MinusOp, // -
+    ObjectOp, // ->
+    DoubleArrowOp, // => 
+    LessThanOp, // <
+    LessThanEqualOp, // <=
+    GreaterThanOp, // >
+    GreaterThanEqualOp, // >=
+    BinaryAndOp, // &&
+    BinaryOrOp // ||
 }
 
 #[derive(Debug)]
 pub enum NumericHint {
-    Any,
     Integer,
     Float
 }
@@ -33,6 +50,11 @@ pub enum TokenType {
     Punctuation{raw: char, kind: PunctuationKind},
 
     Operator{raw: String, kind: OperatorKind},
+    Tag{raw: String, kind: TagKind},
+
+    Variable(String),
+    Identifier(String),
+    Keyword{kind: KeywordKind},
 
     Char(char),
 
