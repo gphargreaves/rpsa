@@ -1,6 +1,7 @@
 use glob::glob;
 use std::{
     collections::HashMap,
+    fs::Metadata,
     path::{Path, PathBuf},
     time::SystemTime,
 };
@@ -38,19 +39,33 @@ impl FileWatcher {
     pub fn watch(&mut self) {
         loop {
             self.scan();
+            //TODO thread sleep should probably be configurable
             let delay = time::Duration::from_millis(500);
             std::thread::sleep(delay);
         }
     }
 
     fn track(&mut self, path: PathBuf) {
-        if let Some(path_string) = path.to_str() {
-            if let Ok(meta) = path.symlink_metadata() {
-                if let Ok(modified) = meta.modified() {
-                    self.try_push_meta(path_string.to_string(), modified)
-                }
-            }
+        let mut path_string: &str;
+        let mut meta: Metadata;
+        let mut modified: SystemTime;
+
+        if path.to_str().is_none() || path.symlink_metadata().is_err() {
+            //TODO should probably error?
+            return;
         }
+
+        path_string = path.to_str().unwrap();
+        meta = path.symlink_metadata().unwrap();
+
+        if meta.modified().is_err() {
+            //TODO should probably error?
+            return;
+        }
+
+        modified = meta.modified().unwrap();
+
+        self.try_push_meta(path_string.to_string(), modified);
     }
 
     fn try_push_meta(&mut self, path: String, modified: SystemTime) {
